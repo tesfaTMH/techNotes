@@ -1,10 +1,20 @@
 import express from "express";
 import path from "path";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import { corsOptions } from "./config/corsOptions.js";
+
 import rootRouter from "./routes/root.js";
+
+import { logger } from "./middleware/logger.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 
+app.use(logger);
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors(corsOptions));
 
 const __dirname = path.resolve();
 
@@ -24,6 +34,7 @@ app.all("*", (req, res) => {
   }
 });
 
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
