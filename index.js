@@ -6,6 +6,7 @@ import cors from "cors";
 import { corsOptions } from "./config/corsOptions.js";
 
 import rootRouter from "./routes/root.js";
+import userRouter from "./routes/userRoutes.js";
 
 import { logger, logEvents } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -26,6 +27,7 @@ const __dirname = path.resolve();
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", rootRouter);
+app.use("/users", userRouter);
 
 const PORT = process.env.PORT || 3500;
 
