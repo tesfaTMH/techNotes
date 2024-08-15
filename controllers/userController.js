@@ -98,9 +98,9 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 
   // check if the user has an assigned notes
-  const notes = await Note.findOne({ user: id }).lean().exec();
+  const note = await Note.findOne({ user: id }).lean().exec();
 
-  if (notes?.length) {
+  if (note?.length) {
     return res.status(400).json({ message: "User has assigned notes" });
   }
 
